@@ -37,7 +37,7 @@ public class NumberController {
             return ResponseEntity.ok(numberService.getMaxNumber());
         } catch (Exception e) {
             e.printStackTrace();
-            return ResponseEntity.badRequest().body("Error");
+            return ResponseEntity.badRequest().body(e);
         }
     }
 
@@ -47,7 +47,7 @@ public class NumberController {
             return ResponseEntity.ok(numberService.getMinNumber());
         } catch (Exception e) {
             e.printStackTrace();
-            return ResponseEntity.badRequest().body("error");
+            return ResponseEntity.badRequest().body(e);
         }
     }
 
@@ -57,7 +57,7 @@ public class NumberController {
             return ResponseEntity.ok(numberService.getMedian());
         } catch (Exception e) {
             e.printStackTrace();
-            return ResponseEntity.badRequest().body("error");
+            return ResponseEntity.badRequest().body(e);
         }
     }
 
@@ -67,7 +67,7 @@ public class NumberController {
             return ResponseEntity.ok(numberService.getAverage());
         } catch (Exception e) {
             e.printStackTrace();
-            return ResponseEntity.badRequest().body("error");
+            return ResponseEntity.badRequest().body(e);
         }
     }
 
@@ -77,7 +77,7 @@ public class NumberController {
             return ResponseEntity.ok(numberService.getIncreasingSequence());
         } catch (Exception e) {
             e.printStackTrace();
-            return ResponseEntity.badRequest().body("error");
+            return ResponseEntity.badRequest().body(e);
         }
     }
 
@@ -87,7 +87,7 @@ public class NumberController {
             return ResponseEntity.ok(numberService.getDecreasingSequence());
         } catch (Exception e) {
             e.printStackTrace();
-            return ResponseEntity.badRequest().body("error");
+            return ResponseEntity.badRequest().body(e);
         }
     }
 }

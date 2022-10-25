@@ -6,6 +6,7 @@ import com.sovadeveloper.numbers.dto.OneIntegerNumber;
 import com.sovadeveloper.numbers.property.StorageProperty;
 import com.sovadeveloper.numbers.service.NumberService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Service;
 
 import java.io.BufferedReader;
@@ -23,6 +24,7 @@ public class NumberServiceImpl implements NumberService {
         this.storageProperty = storageProperty;
     }
 
+    @Cacheable("list")
     @Override
     public List<Integer> getNumbersFromFile() throws FileNotFoundException {
         BufferedReader bufferedReader = new BufferedReader(
@@ -30,18 +32,39 @@ public class NumberServiceImpl implements NumberService {
         return bufferedReader.lines().mapToInt(Integer::parseInt).boxed().toList();
     }
 
+    @Cacheable("max")
     @Override
     public OneIntegerNumber getMaxNumber() throws FileNotFoundException {
         List<Integer> numbers = getNumbersFromFile();
         return new OneIntegerNumber(Collections.max(numbers));
+
+//        List<Integer> numbers = getNumbersFromFile();
+//        Integer max = Integer.MIN_VALUE;
+//        for(Integer number: numbers){
+//            if(number > max){
+//                max = number;
+//            }
+//        }
+//        return new OneIntegerNumber(max);
     }
 
+    @Cacheable("min")
     @Override
     public OneIntegerNumber getMinNumber() throws FileNotFoundException {
         List<Integer> numbers = getNumbersFromFile();
         return new OneIntegerNumber(Collections.min(numbers));
+
+//        List<Integer> numbers = getNumbersFromFile();
+//        Integer min = Integer.MAX_VALUE;
+//        for(Integer number: numbers){
+//            if(number < min){
+//                min = number;
+//            }
+//        }
+//        return new OneIntegerNumber(min);
     }
 
+    @Cacheable("median")
     @Override
     public OneIntegerNumber getMedian() throws FileNotFoundException {
         List<Integer> numbers = Collections.unmodifiableList(getNumbersFromFile());
@@ -50,6 +73,7 @@ public class NumberServiceImpl implements NumberService {
         return new OneIntegerNumber(newNumbers.get(newNumbers.size() / 2));
     }
 
+    @Cacheable("average")
     @Override
     public OneDoubleNumber getAverage() throws FileNotFoundException {
         List<Integer> numbers = getNumbersFromFile();
@@ -57,6 +81,7 @@ public class NumberServiceImpl implements NumberService {
         return new OneDoubleNumber(average.getAsDouble());
     }
 
+    @Cacheable("increasingSequence")
     @Override
     public ManyNumbers getIncreasingSequence() throws FileNotFoundException {
         List<List<Integer>> sequences = new ArrayList<>();
@@ -84,6 +109,7 @@ public class NumberServiceImpl implements NumberService {
         return new ManyNumbers(sequences);
     }
 
+    @Cacheable("decreasingSequence")
     @Override
     public ManyNumbers getDecreasingSequence() throws FileNotFoundException {
         List<List<Integer>> sequences = new ArrayList<>();
