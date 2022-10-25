@@ -5,8 +5,11 @@
 Для поулчения json/xml ответа необходимо добавить соответсвенные headers - Accept: application/json или Accpet: application/xml
 
 - Загрузка файла [POST]
+ 
   Request: "api/numbers/upload"
+  
   Response: {file: file(select)}
+  
 - Получение максимального числа [GET]:
   Request: "api/numbers/get_max_value"
   Response: {value: n}
